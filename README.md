@@ -1,19 +1,21 @@
 # unq-db2
 
-# Documentation
 
+## Documentation
+
+- [Fake data script](./fake-data-script) (go to subfolder): script to generate fake data (with a static schema by now).
 - docker-compose.yml: Creates containers for microsoft sql 2022 server express (`mcr.microsoft.com/mssql/server:2022-latest`).
 - setUp.sh: script to build docker containers.
 
-# Set up
+## Set up
 
-## Requirements
+### Requirements
 - Docker installed.
 - Recommended:
     - Docker compose installed (or simulate script with docker run command).
     - Bash installed (or execute docker-compose command directly).
 
-## Steps
+### Steps
 
 1. Go to root folder in a terminal.
 
