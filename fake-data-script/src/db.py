@@ -1,16 +1,7 @@
 import pymssql
 
 from query_builder import build_multiple_insert_query
-
-biblioteca_table = "dbo.biblioteca"
-socio_table = "dbo.socio"
-libro_table = "dbo.libro"
-
-all_tables = [
-    biblioteca_table,
-    socio_table,
-    libro_table
-]
+from statics import all_tables
 
 
 class DB:
@@ -70,18 +61,18 @@ class DB:
         self.logger.debug(f"find_all_ids with limit: {limit}")
         ids_by_table = {}
         for table in all_tables:
-            res = self.execute_with_results(f"SELECT TOP ({limit}) * FROM {table};")
-            ids_by_table[table] = [row[0] for row in res]
-            self.logger.debug(f"res {table}: {res}")
+            res = self.execute_with_results(f"SELECT TOP ({limit}) * FROM {table.name};")
+            ids_by_table[table.name] = [row[0] for row in res]
+            self.logger.debug(f"res {table.name}: {res}")
         return ids_by_table
 
     def find_all(self, limit=300):
         self.logger.debug(f"find_all with limit: {limit}")
         res_by_table = {}
         for table in all_tables:
-            res = self.execute_with_results(f"SELECT TOP ({limit}) * FROM {table};")
-            res_by_table[table] = [row for row in res]
-            self.logger.debug(f"res {table}: {res}")
+            res = self.execute_with_results(f"SELECT TOP ({limit}) * FROM {table.name};")
+            res_by_table[table.name] = [row for row in res]
+            self.logger.debug(f"res {table.name}: {res}")
         return res_by_table
 
     def close_connection(self):

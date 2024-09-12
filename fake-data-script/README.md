@@ -1,6 +1,8 @@
 # Fake data script
 
-Fake data script to generate fake data in mssql server
+Fake data script to generate fake data in mssql server.
+
+Use https://faker.readthedocs.io/en/master/ as Fake data generator and some python native random methods.
 
 ## Requirement
 

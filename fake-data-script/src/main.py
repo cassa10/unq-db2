@@ -3,8 +3,8 @@ import time
 from config import Config
 from db import DB
 from logger import Logger
-from fake_data_builder import (build_all_fake_data, build_all_fake_data_with_fk)
-
+from fake_data_builder import (build_all_fake_data, build_all_fake_data_with_fk_1_level,
+                               build_all_fake_data_with_fk_2_level)
 
 if __name__ == "__main__":
     start_time = time.time()
@@ -22,18 +22,29 @@ if __name__ == "__main__":
     skipInserts = True
 
     fake_data = build_all_fake_data(size_rows)
-    for table, data in fake_data.items():
-        db.handle_insert_query(table, data, skipInserts)
+    for table_name, data in fake_data.items():
+        db.handle_insert_query(table_name, data, skipInserts)
 
-    # Get all ids
+    # TODO: Refactor every fk level to a method
+
+    # Get all ids for level 1
     fk_ids = db.find_all_ids()
+    logger.debug(f"fk_ids for level 1: {fk_ids}")
 
-    # Generate data with FK's
-    fake_data_with_fk = build_all_fake_data_with_fk(size_rows, fk_ids)
-    logger.debug(f"fk_ids: {fk_ids}")
+    # Generate data with FK's 1 level
+    fake_data_with_fk_1_level = build_all_fake_data_with_fk_1_level(size_rows, fk_ids)
 
-    for table, data in fake_data_with_fk.items():
-        db.handle_insert_query(table, data, skipInserts)
+    for table_name, data in fake_data_with_fk_1_level.items():
+        db.handle_insert_query(table_name, data, skipInserts)
+
+    # Get all ids for level 2
+    fk_ids = db.find_all_ids()
+    logger.debug(f"fk_ids for level 2: {fk_ids}")
+
+    # Generate data with FK's 2 level
+    fake_data_with_fk_2_level = build_all_fake_data_with_fk_2_level(size_rows, fk_ids)
+    for table_name, data in fake_data_with_fk_2_level.items():
+        db.handle_insert_query(table_name, data, skipInserts)
 
     # Select all tables for debug
     if cfg.debug_mode:
