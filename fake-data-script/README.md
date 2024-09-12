@@ -18,15 +18,15 @@ pip install -r ./requirements.txt
 
 - Help:
 ```
-py ./main.py -h
+py ./src/main.py -h
 ```
 
 - Example command:
 ```
-py ./main.py -s localhost:1433 -n test -u sa -p pass -g 50
+py ./src/main.py -s localhost:1433 -n test -u sa -p pass -g 50
 ```
 
 - With debug mode:
 ```
-py ./main.py -p pass -g 50 -d
+py ./src/main.py -p pass -g 50 -d
 ```
