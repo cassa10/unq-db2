@@ -19,7 +19,7 @@ if __name__ == "__main__":
     db = DB(cfg, logger)
 
     size_rows = cfg.generate_fake_rows
-    skipInserts = True
+    skipInserts = False
 
     fake_data = build_all_fake_data(size_rows)
     for table_name, data in fake_data.items():
