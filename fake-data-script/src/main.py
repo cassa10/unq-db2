@@ -1,4 +1,5 @@
 import argparse
+import time
 from config import Config
 from db import DB
 from logger import Logger
@@ -6,13 +7,15 @@ from fake_data_builder import (build_all_fake_data, build_all_fake_data_with_fk)
 
 
 if __name__ == "__main__":
+    start_time = time.time()
     cfg = Config(argparse.ArgumentParser())
     logger = Logger(cfg.debug_mode)
 
     logger.info('Welcome to fake script :D')
     logger.debug(f'cfg: {cfg.__dict__}')
 
-    # get db context
+    # TODO: Handle exceptions and log error succesfully
+
     db = DB(cfg, logger)
 
     size_rows = cfg.generate_fake_rows
@@ -38,4 +41,4 @@ if __name__ == "__main__":
 
     db.close_connection()
 
-    logger.info('Script finish')
+    logger.info(f'Script finish succesfully - {time.time() - start_time}s -')

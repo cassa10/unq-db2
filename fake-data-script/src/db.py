@@ -38,7 +38,8 @@ class DB:
             self.conn.commit()
 
         except Exception as e:
-            print(f"Error: {e}")
+            self.logger.error(f"Error: {e}")
+            raise e
 
     def execute_with_results(self, query):
         try:
@@ -54,7 +55,8 @@ class DB:
             return res
 
         except Exception as e:
-            print(f"Error: {e}")
+            self.logger.error(f"Error: {e}")
+            raise e
 
     def handle_insert_query(self, table: str, data, skip=False):
         self.logger.debug(f"handle_insert_query - table: {table}")
