@@ -23,10 +23,10 @@ py ./main.py -h
 
 - Example command:
 ```
-py ./main.py -s localhost:1433 -n test -u sa -p pass
+py ./main.py -s localhost:1433 -n test -u sa -p pass -g 50
 ```
 
 - With debug mode:
 ```
-py ./main.py -p pass -d
+py ./main.py -p pass -g 50 -d
 ```

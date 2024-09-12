@@ -1,3 +1,5 @@
+import datetime
+
 class Logger:
 
     def __init__(self, debug_mode: bool):
@@ -20,4 +22,4 @@ class Logger:
         print(msg)
 
     def print_level(self, level, msg):
-        print(f"{level} | {msg}")
+        print(f"{datetime.datetime.now()} | {level} | {msg}")

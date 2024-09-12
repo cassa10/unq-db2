@@ -9,34 +9,42 @@ faker = Faker()
 now = datetime.now()
 
 
-def build_all_fake_data(size: int) -> Dict[str, List[str]]:
+class FakeData:
+    def __init__(self, columns: str, data: [str]):
+        self.columns = columns
+        self.data = data
+
+
+def build_all_fake_data(size: int) -> Dict[str, FakeData]:
     return {
-        "biblioteca": build_biblioteca_fake_data(size),
-        "socio": build_socio_fake_data(size),
+        "dbo.biblioteca": FakeData(
+            buildColumnStr(["nombre", "direccion"]),
+            build_biblioteca_fake_data(size)
+        ),
+        "dbo.socio": FakeData(
+            buildColumnStr(["dni", "email", "telefono", "nombre", "apellido", "fechaNacimiento"]),
+            build_socio_fake_data(size)
+        ),
     }
 
 
-def build_biblioteca_fake_data(size: int) -> [str]:
+def build_biblioteca_fake_data(size: int) -> List[str]:
     return fake_data_builder(
         size,
-        lambda: f"(biblioteca_{faker.city()}, {faker.address()})"
+        lambda: f"('biblioteca_{faker.city()}', '{faker.address()}')"
     )
 
 
-def build_socio_fake_data(size: int) -> [str]:
+def build_socio_fake_data(size: int) -> List[str]:
     return fake_data_builder(
         size,
-        lambda: f"({randrange(60_000_000)}, {faker.email()}, {faker.phone_number()}" +
-                f", {faker.first_name()}, {faker.last_name()}, {faker.date_of_birth()})"
-    )
-
-
-def build_persons_fake_data(size: int) -> [str]:
-    return fake_data_builder(
-        size,
-        lambda: f"({faker.first_name()}, {faker.last_name()}, {now.year - int(faker.year())})"
+        lambda: f"({randrange(60_000_000)}, '{faker.email()}', '{faker.basic_phone_number()}'" +
+                f", '{faker.first_name()}', '{faker.last_name()}', '{faker.date_of_birth()}')"
     )
 
 
 def fake_data_builder(size: int, fake_data_generator: Callable[[], str]) -> [str]:
     return [fake_data_generator() for _ in range(0, size)]
+
+def buildColumnStr(columns: [str]):
+    return f"({', '.join(columns)})"
