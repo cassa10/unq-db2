@@ -6,7 +6,11 @@ Use https://faker.readthedocs.io/en/master/ as Fake data generator and some pyth
 
 ## Requirement
 
-- mssql server 2022 (maybe works with other versions, but not tested) 
+- mssql server 2022 running (maybe works with other versions, but not tested) 
+- python 3 installed
+
+libs:
+- watch 
 
 ## Install script dependencies
 
