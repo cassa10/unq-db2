@@ -1,3 +1,3 @@
-Faker
-argparse
-pymssql
+Faker==28.4.1
+argparse==1.4.0
+pymssql==2.3.1
