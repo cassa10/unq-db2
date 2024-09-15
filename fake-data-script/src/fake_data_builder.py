@@ -84,10 +84,13 @@ def __build_biblioteca_socio_fake_data(size: int, fk_ids: Dict[str, List[int]]):
 
 
 def __build_book_fake_data(size: int, fk_ids: Dict[str, List[int]]):
+    categorias = ['Terror', 'Fantasia', 'Policial', 'Historia', 'Educativo', 'Novela']
     return __fake_data_builder(
         size,
         lambda: f"('{faker.sentence(15)}', " +
                 f" '{faker.name()}, {faker.name()}', " +
+                f" {randrange(1, 1_000_000)}, " +
+                f" '{choice(categorias)}', " +
                 f"{choice(fk_ids[biblioteca_table.name])})"
     )
 

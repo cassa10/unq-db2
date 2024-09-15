@@ -14,9 +14,13 @@ if __name__ == "__main__":
     logger.info('Welcome to fake script :D')
     logger.debug(f'cfg: {cfg.__dict__}')
 
-    # TODO: Handle exceptions and log error succesfully
+    # TODO: Handle exceptions and log error successfully
 
     db = DB(cfg, logger)
+
+    # Log all data exist in db previous execute script
+    logger.info(f"previous script - count all tables {db.count_all()}")
+
 
     size_rows = cfg.generate_fake_rows
     skipInserts = False
@@ -25,7 +29,8 @@ if __name__ == "__main__":
     for table_name, data in fake_data.items():
         db.handle_insert_query(table_name, data, skipInserts)
 
-    # TODO: Refactor every fk level to a method
+    logger.info(f"success create fake_data with size_rows: {size_rows}")
+    # TODO: Refactor every fk level to a method and use some data struct to iterate (List of list)
 
     # Get all ids for level 1
     fk_ids = db.find_all_ids()
@@ -37,6 +42,8 @@ if __name__ == "__main__":
     for table_name, data in fake_data_with_fk_1_level.items():
         db.handle_insert_query(table_name, data, skipInserts)
 
+    logger.info(f"success create fake_data_with_fk_1_level with size_rows: {size_rows}")
+
     # Get all ids for level 2
     fk_ids = db.find_all_ids()
     logger.debug(f"fk_ids for level 2: {fk_ids}")
@@ -46,10 +53,11 @@ if __name__ == "__main__":
     for table_name, data in fake_data_with_fk_2_level.items():
         db.handle_insert_query(table_name, data, skipInserts)
 
-    # Select all tables for debug
-    if cfg.debug_mode:
-        db.find_all()
+    logger.info(f"success create fake_data_with_fk_2_level with size_rows: {size_rows}")
+
+    # Log all data exist in db as result of script
+    logger.info(f"after script executed - count all tables {db.count_all()}")
 
     db.close_connection()
 
-    logger.info(f'Script finish succesfully - {time.time() - start_time}s -')
+    logger.info(f'Script finish succesfully at {time.time() - start_time}s')

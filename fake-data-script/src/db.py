@@ -75,5 +75,14 @@ class DB:
             self.logger.debug(f"res {table.name}: {res}")
         return res_by_table
 
+    def count_all(self):
+        self.logger.debug(f"count all with tables: {[t.name for t in all_tables]}")
+        res_by_table = {}
+        for table in all_tables:
+            res = self.execute_with_results(f"SELECT COUNT(*) as c FROM {table.name};")
+            res_by_table[table.name] = res[0][0]
+            self.logger.debug(f"res {table.name}: {res}")
+        return res_by_table
+
     def close_connection(self):
         self.conn.close()
