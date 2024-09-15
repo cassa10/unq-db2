@@ -23,6 +23,7 @@ if __name__ == "__main__":
 
 
     size_rows = cfg.generate_fake_rows
+    # TODO: Enable by script parameter for debugging and avoid inserts
     skipInserts = False
 
     fake_data = build_all_fake_data(size_rows)

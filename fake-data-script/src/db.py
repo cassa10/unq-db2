@@ -61,6 +61,7 @@ class DB:
         self.logger.debug(f"find_all_ids with limit: {limit}")
         ids_by_table = {}
         for table in all_tables:
+            # TODO: optimize * to only id by table (Add pk in Table object)
             res = self.execute_with_results(f"SELECT TOP ({limit}) * FROM {table.name};")
             ids_by_table[table.name] = [row[0] for row in res]
             self.logger.debug(f"res {table.name}: {res}")
